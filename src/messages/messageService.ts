@@ -1,6 +1,22 @@
 import { Client } from 'africastalking-ts';
 import dotenv from 'dotenv';
 
+import { MessageModel } from './messageModel';
+
+interface SingleSmsData {
+    topic: string;
+    message: string;
+    recipientNumber: string;
+    origin: string;
+}
+
+interface ManySmsData {
+    topic: string;
+    message: string;
+    recipientNumber: Array<string>;
+    origin: string;
+}
+
 dotenv.config();
 
 const apiKey = process.env.AT_API_KEY as string;
@@ -15,4 +31,32 @@ export const sendSmsService = async (to: string, message: string) => {
 
 export const appBalance = async () => {
     return (await africasTalking.fetchApplicationData()).UserData.balance;
+}
+
+export const storeOneMessage = async (data: SingleSmsData) => {
+   try {
+        await MessageModel.create({ 
+            topic: data.topic, 
+            message: data.message, 
+            recipientNumber: data.recipientNumber, 
+            origin: data.origin 
+        });
+   } catch (error) {
+        console.log(error);
+   }
+}
+
+export const storeManyMessage = async (data: ManySmsData) => {
+    try {
+        data.recipientNumber.forEach(async(number) => {
+            await MessageModel.create({
+                topic: data.topic,
+                message: data.message, 
+                recipientNumber: number, 
+                origin: data.origin 
+            });
+        });
+    } catch (error) {
+        console.log(error);
+    }
 }
