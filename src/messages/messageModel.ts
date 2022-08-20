@@ -2,13 +2,7 @@ import { DataTypes, Model, Optional } from 'sequelize';
 
 import db from '../config/dbconfig';
 
-interface MessageAttributes {
-    id: Number;
-    topic: string;
-    message: string;
-    recipientNumber: string;
-    origin: string;
-}
+import { MessageAttributes } from './messageInterfaces';
 
 type MessageCreationAttributes = Optional<MessageAttributes, 'id'>;
 
