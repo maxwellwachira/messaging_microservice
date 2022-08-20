@@ -3,19 +3,7 @@ import dotenv from 'dotenv';
 
 import { MessageModel } from './messageModel';
 
-interface SingleSmsData {
-    topic: string;
-    message: string;
-    recipientNumber: string;
-    origin: string;
-}
-
-interface ManySmsData {
-    topic: string;
-    message: string;
-    recipientNumber: Array<string>;
-    origin: string;
-}
+import { ManySmsData, SingleSmsData } from './messageInterfaces';
 
 dotenv.config();
 
