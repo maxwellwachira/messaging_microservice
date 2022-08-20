@@ -14,10 +14,10 @@ const sendOneSms = async (req: Request, res: Response) => {
     const serverAddress = req.socket.remoteAddress as string;
     try {
         const response = await sendSmsService(to, message);
-        if (response) {
+        if (response.Recipients) {
             await storeOneMessage({topic, message, recipientNumber: to, origin: serverAddress});
         }
-        return res.status(200).json({message: "success", response});
+        return res.status(200).json({message: "success", recipients: response.Recipients});
     } catch (error) {
         return res.status(500).json({message:"error", error});
     }
@@ -28,10 +28,10 @@ const sendManySms = async (req: Request, res: Response) => {
     const serverAddress = req.socket.remoteAddress as string;
     try {
         const response = await sendSmsService(to, message);
-        if (response){
+        if (response.Recipients){
             await storeManyMessage({topic, message, recipientNumber: to, origin: serverAddress});
         }
-        return res.status(200).json({message: "success", response});
+        return res.status(200).json({message: "success", recipients: response.Recipients});
     } catch (error) {
         return res.status(500).json({message:"error", error});
     }
