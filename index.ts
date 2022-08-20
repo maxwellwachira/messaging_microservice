@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import swaggerUi from 'swagger-ui-express';
 
 //Sequelize Database Connector
 import db from './src/config/dbconfig';
@@ -8,6 +9,8 @@ import db from './src/config/dbconfig';
 import messagesRoutes from './src/messages/messageRoutes';
 //DDOS prevention
 import limiter from './src/security/ddosMiddleware';
+//Swagger Options
+import { swaggerOptions } from './src/docs';
 
 dotenv.config();
 
@@ -31,6 +34,7 @@ dbAuthenticate();
 app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
 //whitelist origin in production
 app.use(cors({
