@@ -25,15 +25,15 @@ const from = process.env.AT_SHORT_CODE;
 
 const africasTalking = new Client({ apiKey,  username });
 
-export const sendSmsService = async (to: string, message: string) => {
+const sendSmsService = async (to: string, message: string) => {
     return (await africasTalking.sendSms({ to, message, from })).SMSMessageData;
 }
 
-export const appBalance = async () => {
+const appBalance = async () => {
     return (await africasTalking.fetchApplicationData()).UserData.balance;
 }
 
-export const storeOneMessage = async (data: SingleSmsData) => {
+const storeOneMessage = async (data: SingleSmsData) => {
    try {
         await MessageModel.create({ 
             topic: data.topic, 
@@ -46,7 +46,7 @@ export const storeOneMessage = async (data: SingleSmsData) => {
    }
 }
 
-export const storeManyMessage = async (data: ManySmsData) => {
+const storeManyMessage = async (data: ManySmsData) => {
     try {
         data.recipientNumber.forEach(async(number) => {
             await MessageModel.create({
@@ -60,3 +60,28 @@ export const storeManyMessage = async (data: ManySmsData) => {
         console.log(error);
     }
 }
+
+const getMessagesService = async (page: number, limit: number) => {
+
+    const offset = (page - 1) * limit;
+    const messages = await MessageModel.findAndCountAll({
+        limit,
+        offset
+    });
+    const totalPages = Math.ceil(messages.count / limit);
+
+    return { 
+        totalMessages: messages.count, 
+        totalPages, 
+        currentPages: page,
+        messages: messages.rows   
+    };
+}
+
+export { 
+    appBalance, 
+    getMessagesService, 
+    sendSmsService,
+    storeManyMessage, 
+    storeOneMessage  
+};
