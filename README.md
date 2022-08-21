@@ -5,7 +5,7 @@
 # Description
 
 This is a messaging microservice built on top of Africa's Talking SDK.<br>
-This microservices takes care of sending sms to one or many recipients, stores sent messages to a database, handles data validation and much more. The app is made using NodeJS, Express and TypeScript
+This microservice takes care of sending sms to one or many recipients, stores sent messages to a database, handles data validation and much more. The app is made using NodeJS, Express and TypeScript
 
 # Demo
 
@@ -22,13 +22,15 @@ click the following link to check my solution [https://vehicle-shifter.netlify.a
 
 # Prerequisites
 
-- [Node JS Installed ](https://nodejs.org/en/download/)
+- [NodeJS Installed ](https://nodejs.org/en/download/)
 
-- Yarn Package Manager installed. Can be installed using the command below:
+- Yarn Package Manager installed. Yarn can be installed using the command below:
 
 ```bash
 npm install --global yarn
 ```
+
+- [PostgreSQL Installed](https://www.postgresql.org/download/)
 
 # Directory-Structure
 
