@@ -7,11 +7,6 @@
 This is a messaging microservice built on top of Africa's Talking SDK.<br>
 This microservice takes care of sending sms to one or many recipients, stores sent messages to a database, handles data validation and much more. The app is made using NodeJS, Express and TypeScript
 
-# Demo
-
-I have a deployed the application on [Netlify](https://www.netlify.com/)<br>
-click the following link to check my solution [https://vehicle-shifter.netlify.app/](https://vehicle-shifter.netlify.app/)
-
 # Table of contents
 
 - [Prerequisites](#Prerequisites)
